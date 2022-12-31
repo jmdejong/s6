@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://qvsylhhgvhsx"]
+
+[ext_resource type="Script" path="res://scripts/height_grass.gd" id="1_advu8"]
+[ext_resource type="Shader" path="res://shaders/grassparticles.gdshader" id="2_lqfen"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_fepwb"]
+transform_format = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7e61"]
+cull_mode = 2
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rguj1"]
+shader = ExtResource("2_lqfen")
+shader_parameter/area_min = Vector3(-16, 10, -16)
+shader_parameter/area_size = Vector3(32, 0, 32)
+shader_parameter/side = 64
+shader_parameter/texture_size = null
+
+[sub_resource type="QuadMesh" id="QuadMesh_xa4ut"]
+size = Vector2(0.5, 0.5)
+center_offset = Vector3(0, 0.25, 0)
+
+[node name="HeightGrass" type="Node3D"]
+script = ExtResource("1_advu8")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_fepwb")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_l7e61")
+custom_aabb = AABB(-16, 0, -16, 32, 100, 32)
+amount = 4096
+process_material = SubResource("ShaderMaterial_rguj1")
+draw_pass_1 = SubResource("QuadMesh_xa4ut")
