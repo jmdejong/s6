@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca575qgiulg5f"]
-
-[ext_resource type="Script" path="res://scripts/height_mesh.gd" id="1_jk4ni"]
-
-[node name="HeightMesh" type="Node3D"]
-script = ExtResource("1_jk4ni")
-
-[node name="Meshes" type="Node3D" parent="."]

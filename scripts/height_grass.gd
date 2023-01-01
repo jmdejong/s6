@@ -3,7 +3,7 @@ extends Node3D
 @export var source: Node
 @export var mesh: Mesh
 @export var chunk_size = 32
-@export var chunk_distance = 1
+@export var chunk_distance = 4
 @export var max_chunks = 100
 @export var particles_per_meter = 2
 
