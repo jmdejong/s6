@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cso43mjodhv5w"]
+
+[ext_resource type="Script" path="res://scripts/height_collisions.gd" id="1_rw1us"]
+
+[node name="HeightCollisions" type="StaticBody3D"]
+script = ExtResource("1_rw1us")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://w66dky36q7nm"]
+
+[ext_resource type="Script" path="res://scripts/height_mesh.gd" id="1_md27k"]
+[ext_resource type="Shader" path="res://shaders/meshterrain.gdshader" id="2_0qfxd"]
+[ext_resource type="Texture2D" uid="uid://cfxhfpriv680" path="res://assets/ground_grass.png" id="3_booo5"]
+[ext_resource type="Texture2D" uid="uid://byty8m8bby1fa" path="res://assets/ground_sand.png" id="4_bj2wx"]
+[ext_resource type="Texture2D" uid="uid://b4jslu0uipdqo" path="res://assets/ground_stone.png" id="5_wkslr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pti3q"]
+render_priority = 0
+shader = ExtResource("2_0qfxd")
+shader_parameter/area_min = null
+shader_parameter/area_size = null
+shader_parameter/texture_size = 2.0
+shader_parameter/grass_texture = ExtResource("3_booo5")
+shader_parameter/sand_texture = ExtResource("4_bj2wx")
+shader_parameter/stone_texture = ExtResource("5_wkslr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtdkt"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 0, 0.733333, 0.733333)
+
+[node name="HeightMesh" type="Node3D"]
+script = ExtResource("1_md27k")
+height_material = SubResource("ShaderMaterial_pti3q")
+water_material = SubResource("StandardMaterial3D_rtdkt")
+
+[node name="Meshes" type="Node3D" parent="."]

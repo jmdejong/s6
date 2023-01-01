@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cl618ixyx3ik4"]
 
-[ext_resource type="Script" path="res://scripts/heightmapshape.gd" id="1_vclct"]
+[ext_resource type="Script" path="res://scripts/height_collisions.gd" id="1_yaisn"]
 
-[node name="HeightmapCollisions" type="StaticBody3D"]
-script = ExtResource("1_vclct")
+[node name="HeightCollisions" type="StaticBody3D"]
+script = ExtResource("1_yaisn")

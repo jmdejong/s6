@@ -1,16 +1,16 @@
 [gd_scene load_steps=11 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
-[ext_resource type="PackedScene" uid="uid://ca575qgiulg5f" path="res://scenes/heightmap.tscn" id="3_7is5v"]
+[ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
 [ext_resource type="Script" path="res://scripts/counters.gd" id="3_k87n2"]
-[ext_resource type="PackedScene" uid="uid://cl618ixyx3ik4" path="res://scenes/heightmap_collisions.tscn" id="4_6hr3l"]
+[ext_resource type="PackedScene" uid="uid://cso43mjodhv5w" path="res://scenes/height_collisions.tscn" id="4_7w3qk"]
 [ext_resource type="Script" path="res://scripts/blueprint.gd" id="4_g5nwg"]
 [ext_resource type="Shader" path="res://shaders/heightmap.gdshader" id="5_q2kd8"]
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
 
 [sub_resource type="Environment" id="Environment_ok65l"]
 ambient_light_source = 2
-ambient_light_color = Color(0.533333, 0.533333, 0.533333, 1)
+ambient_light_energy = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_sf6mf"]
 
@@ -41,20 +41,20 @@ offset_right = 40.0
 offset_bottom = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 16, -8)
 
-[node name="HeightmapMesh" parent="." node_paths=PackedStringArray("source") instance=ExtResource("3_7is5v")]
+[node name="HeightMesh" parent="." node_paths=PackedStringArray("source") instance=ExtResource("3_f64ys")]
 source = NodePath("../Blueprint")
 
-[node name="HeightmapCollisions" parent="." node_paths=PackedStringArray("source") instance=ExtResource("4_6hr3l")]
+[node name="HeightCollisions" parent="." node_paths=PackedStringArray("source") instance=ExtResource("4_7w3qk")]
+source = NodePath("../Blueprint")
+
+[node name="HeightGrass" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
+transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 1, 5.96046e-08, -4.76837e-07, 1.19209e-07)
 source = NodePath("../Blueprint")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)
-
-[node name="HeightGrass" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
-source = NodePath("../Blueprint")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_sf6mf")
@@ -72,6 +72,6 @@ custom_minimum_size = Vector2(4096, 4096)
 offset_right = 4096.0
 offset_bottom = 4096.0
 
-[connection signal="viewpoint_changed" from="Player" to="HeightmapMesh" method="update_viewpoint"]
-[connection signal="viewpoint_changed" from="Player" to="HeightmapCollisions" method="update_viewpoint"]
+[connection signal="viewpoint_changed" from="Player" to="HeightMesh" method="update_viewpoint"]
+[connection signal="viewpoint_changed" from="Player" to="HeightCollisions" method="update_viewpoint"]
 [connection signal="viewpoint_changed" from="Player" to="HeightGrass" method="update_viewpoint"]

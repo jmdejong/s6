@@ -4,9 +4,7 @@ uniform sampler2D noise;
 uniform vec3 area_min;
 uniform vec3 area_size;
 uniform uint side;
-uniform vec2 chunk_min;
-uniform vec2 chunk_size;
-// uniform float rot;
+uniform float chunk_size;
 
 
 
@@ -72,7 +70,7 @@ void start() {
 	float rot = rand_from_seed(hash(INDEX)) * TAU;
 	uint pind = INDEX * 101u % (side * side);
 	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
-	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz;
+	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(INDEX * 7u + 53u)) - 0.5, rand_from_seed(hash(INDEX * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
 	float h = height_at(pos);
 	TRANSFORM = mat4(
 		vec4( cos(rot), 0.0, sin(rot), 0.0),

@@ -1,27 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca575qgiulg5f"]
+[gd_scene load_steps=2 format=3 uid="uid://ca575qgiulg5f"]
 
-[ext_resource type="Script" path="res://scripts/heightmap.gd" id="1_rr73j"]
-[ext_resource type="Shader" path="res://shaders/meshterrain.gdshader" id="2_46lqx"]
-[ext_resource type="Texture2D" uid="uid://cfxhfpriv680" path="res://assets/ground_grass.png" id="3_2avwg"]
-[ext_resource type="Texture2D" uid="uid://byty8m8bby1fa" path="res://assets/ground_sand.png" id="4_n72q7"]
-[ext_resource type="Texture2D" uid="uid://b4jslu0uipdqo" path="res://assets/ground_stone.png" id="5_nwyq3"]
+[ext_resource type="Script" path="res://scripts/height_mesh.gd" id="1_jk4ni"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lvdf5"]
-render_priority = 0
-shader = ExtResource("2_46lqx")
-shader_parameter/area_min = null
-shader_parameter/area_size = null
-shader_parameter/texture_size = 4.0
-shader_parameter/grass_texture = ExtResource("3_2avwg")
-shader_parameter/sand_texture = ExtResource("4_n72q7")
-shader_parameter/stone_texture = ExtResource("5_nwyq3")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvtop"]
-albedo_color = Color(0, 0, 1, 1)
-
-[node name="HeightmapMesh" type="Node3D"]
-script = ExtResource("1_rr73j")
-height_material = SubResource("ShaderMaterial_lvdf5")
-water_material = SubResource("StandardMaterial3D_tvtop")
+[node name="HeightMesh" type="Node3D"]
+script = ExtResource("1_jk4ni")
 
 [node name="Meshes" type="Node3D" parent="."]

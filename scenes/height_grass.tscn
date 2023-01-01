@@ -1,15 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://qvsylhhgvhsx"]
+[gd_scene load_steps=4 format=3 uid="uid://qvsylhhgvhsx"]
 
 [ext_resource type="Script" path="res://scripts/height_grass.gd" id="1_advu8"]
-[ext_resource type="Shader" path="res://shaders/grassparticles.gdshader" id="2_lqfen"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmc1g"]
-shader = ExtResource("2_lqfen")
-shader_parameter/area_min = null
-shader_parameter/area_size = null
-shader_parameter/side = null
-shader_parameter/chunk_min = null
-shader_parameter/chunk_size = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3pfx"]
 cull_mode = 2
@@ -22,5 +13,4 @@ center_offset = Vector3(0, 0.25, 0)
 
 [node name="HeightGrass" type="Node3D"]
 script = ExtResource("1_advu8")
-particle_material = SubResource("ShaderMaterial_xmc1g")
 mesh = SubResource("QuadMesh_h6pen")

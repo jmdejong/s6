@@ -7,9 +7,9 @@ render_mode world_vertex_coords, unshaded;
 uniform sampler2D noise;
 uniform vec3 area_min;
 uniform vec3 area_size;
-uniform sampler2D grass_texture;
-uniform sampler2D sand_texture;
-uniform sampler2D stone_texture;
+uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
+uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
+uniform sampler2D stone_texture : source_color, filter_linear_mipmap;
 uniform float texture_size;
 
 varying vec3 normals;
@@ -82,7 +82,7 @@ void fragment() {
 		);
 	float sea_height = clamp(1.0 + p.y/4.0, 0.0, 1.0);
 	vec3 blue = vec3(sea_height, sea_height, 1.0);
-	ALBEDO = t.xyz;
+	ALBEDO = t.xyz * blue * blue;
 // 	ALBEDO = mix(
 // 		texture(stone_texture, tex_uv).xyz,
 // 		mix(
