@@ -5,9 +5,7 @@ const MOUSE_SENSITIVITY = 0.003
 const speed = 3
 const sprint_speed = 100
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+
 
 signal viewpoint_changed(pos: Vector3)
 

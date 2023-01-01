@@ -63,7 +63,7 @@ func get_area_height(sub_area):
 	var heightdata = PackedFloat32Array()
 	heightdata.resize(pixel_area.get_area())
 	heightdata.fill(base_height)
-	print("area height ", sub_area, pixel_area, used_pixel_area)
+	# print("area height ", sub_area, pixel_area, used_pixel_area)
 	# used_area = sub_area.instersection(_area)
 	# used_pixel_area = Rect2(used_area.position - area.position) * resolution, used_area.size * resolution)
 	for y in range(used_pixel_area.position.y, used_pixel_area.end.y):

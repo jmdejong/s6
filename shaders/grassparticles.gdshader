@@ -4,7 +4,8 @@ uniform sampler2D noise;
 uniform vec3 area_min;
 uniform vec3 area_size;
 uniform uint side;
-uniform float texture_size;
+uniform vec2 chunk_min;
+uniform vec2 chunk_size;
 // uniform float rot;
 
 
@@ -36,6 +37,7 @@ float height_at(vec2 position) {
 	vec4 tex = interpolate_sample(noise, uv, 0);
 // 	vec4 tex = texture(noise, uv);
 	return (tex.x + tex.y / 255.0 ) * area_size.y + area_min.y;
+// 	return (tex.x) * area_size.y + area_min.y;
 }
 
 
@@ -68,12 +70,15 @@ uint hash(uint x) {
 
 void start() {
 	float rot = rand_from_seed(hash(INDEX)) * TAU;
-	vec3 pos = vec3(float(INDEX / side), 0, float(INDEX % side)) / float(side) * area_size + area_min;
+	uint pind = INDEX * 101u % (side * side);
+	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
+	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz;
+	float h = height_at(pos);
 	TRANSFORM = mat4(
 		vec4( cos(rot), 0.0, sin(rot), 0.0),
 		vec4( 0.0, 1.0, 0.0, 0.0),
 		vec4( -sin(rot), 0.0, cos(rot), 0.0),
-		vec4( pos, 1.0)
+		vec4( pos.x, h, pos.y, 1.0)
 	);
 }
 

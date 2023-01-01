@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=11 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://ca575qgiulg5f" path="res://scenes/heightmap.tscn" id="3_7is5v"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cl618ixyx3ik4" path="res://scenes/heightmap_collisions.tscn" id="4_6hr3l"]
 [ext_resource type="Script" path="res://scripts/blueprint.gd" id="4_g5nwg"]
 [ext_resource type="Shader" path="res://shaders/heightmap.gdshader" id="5_q2kd8"]
+[ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
+
+[sub_resource type="Environment" id="Environment_ok65l"]
+ambient_light_source = 2
+ambient_light_color = Color(0.533333, 0.533333, 0.533333, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sf6mf"]
 
@@ -18,16 +23,22 @@ shader_parameter/base_height = null
 
 [node name="World" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ok65l")
+
 [node name="Counters" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
-layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Pos" type="Label" parent="Counters"]
-layout_mode = 2
+offset_top = 27.0
+offset_right = 40.0
+offset_bottom = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 unique_name_in_owner = true
@@ -42,6 +53,9 @@ source = NodePath("../Blueprint")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)
 
+[node name="HeightGrass" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
+source = NodePath("../Blueprint")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_sf6mf")
 
@@ -49,6 +63,7 @@ mesh = SubResource("BoxMesh_sf6mf")
 script = ExtResource("4_g5nwg")
 
 [node name="HeightView" type="SubViewport" parent="Blueprint"]
+render_target_clear_mode = 2
 render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="Blueprint/HeightView"]
@@ -59,3 +74,4 @@ offset_bottom = 4096.0
 
 [connection signal="viewpoint_changed" from="Player" to="HeightmapMesh" method="update_viewpoint"]
 [connection signal="viewpoint_changed" from="Player" to="HeightmapCollisions" method="update_viewpoint"]
+[connection signal="viewpoint_changed" from="Player" to="HeightGrass" method="update_viewpoint"]
