@@ -20,6 +20,7 @@ func _ready():
 	_particle_material.set_shader_parameter("side", particles_per_meter * chunk_size)
 	_particle_material.set_shader_parameter("chunk_size", chunk_size)
 	_particle_material.set_shader_parameter("noise", source.height_texture())
+	_particle_material.set_shader_parameter("grass_density", source.grass_density_texture())
 
 func add_grass_area(area):
 	var node = GPUParticles3D.new()

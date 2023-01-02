@@ -6,8 +6,9 @@ extends Node
 @export var resolution = 1
 
 var _area
-var _heightmap
+var _height_texture
 var _heightmap_image
+var _grass_density_texture
 var is_ready = false
 signal _creation_done
 
@@ -18,13 +19,21 @@ func _ready():
 	# initializing source image
 	$HeightView.size = _area.size * resolution
 	$HeightView/Image.size = _area.size * resolution
-	$HeightView/Image.material.set_shader_parameter("_area_min", aabb.position)
-	$HeightView/Image.material.set_shader_parameter("_area_size", aabb.size)
-	$HeightView/Image.material.set_shader_parameter("_shore_offset", _shore_offset)
+	$HeightView/Image.material.set_shader_parameter("area_min", aabb.position)
+	$HeightView/Image.material.set_shader_parameter("area_size", aabb.size)
+	$HeightView/Image.material.set_shader_parameter("shore_offset", _shore_offset)
 	$HeightView/Image.material.set_shader_parameter("base_height", base_height)
 	await RenderingServer.frame_post_draw
-	_heightmap = $HeightView.get_texture()
-	_heightmap_image = _heightmap.get_image()
+	_height_texture = $HeightView.get_texture()
+	_heightmap_image = _height_texture.get_image()
+	$GrassView.size = _area.size * resolution
+	$GrassView/Image.size = _area.size * resolution
+	$GrassView/Image.material.set_shader_parameter("area_min", aabb.position)
+	$GrassView/Image.material.set_shader_parameter("area_size", aabb.size)
+	$GrassView/Image.material.set_shader_parameter("heightmap", _height_texture)
+	$GrassView.render_target_update_mode = 1
+	_grass_density_texture = $GrassView.get_texture()
+	await RenderingServer.frame_post_draw
 	is_ready = true
 	_creation_done.emit()
 
@@ -38,7 +47,10 @@ func water_height():
 	return -0.01
 
 func height_texture():
-	return _heightmap
+	return _height_texture
+
+func grass_density_texture():
+	return _grass_density_texture
 
 func get_height_raw(x, y):
 	var ch = _heightmap_image.get_pixel(x, y)

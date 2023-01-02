@@ -5,6 +5,7 @@ uniform vec3 area_min;
 uniform vec3 area_size;
 uniform uint side;
 uniform float chunk_size;
+uniform sampler2D grass_density : filter_nearest;
 
 
 
@@ -72,6 +73,11 @@ void start() {
 	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
 	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(INDEX * 7u + 53u)) - 0.5, rand_from_seed(hash(INDEX * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
 	float h = height_at(pos);
+	vec2 uv = (pos - area_min.xz) / area_size.xz;
+	float density = texture(grass_density, uv).r;
+	if (texture(grass_density, uv).r < rand_from_seed(hash(INDEX * 103u + 13u))) {
+		ACTIVE = false;
+	}
 	TRANSFORM = mat4(
 		vec4( cos(rot), 0.0, sin(rot), 0.0),
 		vec4( 0.0, 1.0, 0.0, 0.0),
