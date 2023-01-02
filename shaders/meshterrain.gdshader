@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode world_vertex_coords, unshaded;
+render_mode world_vertex_coords;
 
 
 #include "shaders/ashima_simplex.gdshaderinc"
