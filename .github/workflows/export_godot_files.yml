@@ -32,6 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: find /home/runner/.local/share/godot
+      - run: ls
+      - run: ls *
       - run: cp -r /home/runner/.local/share/godot/builds/Web/ .
       - run: cp Web/s6.html Web/index.html
       # - run: find HTML5
