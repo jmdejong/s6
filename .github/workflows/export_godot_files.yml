@@ -31,8 +31,8 @@ jobs:
           base_version: 1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: find /home/runner/.local/share/godot
-      - run: cp -r /home/runner/.local/share/godot/builds/HTML5/ .
+      # - run: find /home/runner/.local/share/godot
+      - run: cp -r /home/runner/.local/share/godot/builds/Web/ .
       - run: cp HTML5/s6.html HTML5/index.html
       - run: find HTML5
       - name: publish page
