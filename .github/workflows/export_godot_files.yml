@@ -33,11 +33,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: find /home/runner/.local/share/godot
       - run: cp -r /home/runner/.local/share/godot/builds/Web/ .
-      - run: cp HTML5/s6.html HTML5/index.html
-      - run: find HTML5
+      - run: cp Web/s6.html Web/index.html
+      # - run: find HTML5
       - name: publish page
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./HTML5
+          publish_dir: ./Web
