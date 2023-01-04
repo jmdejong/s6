@@ -54,13 +54,10 @@ offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 
 [node name="Pos" type="Label" parent="Counters"]
-offset_top = 27.0
-offset_right = 40.0
-offset_bottom = 50.0
+layout_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 16, -8)
@@ -76,10 +73,11 @@ transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 
 source = NodePath("../Blueprint")
 mesh = SubResource("QuadMesh_4x1m3")
 chunk_size = 16
+chunk_distance = 3
+max_chunks = 40
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)
-light_energy = 0.652
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_sf6mf")

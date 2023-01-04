@@ -59,3 +59,8 @@ func update_viewpoint(pos3):
 			var v = Vector2(x, y)
 			if not (v in _loaded_chunks):
 				_loaded_chunks[v] = add_grass_area(Rect2(v, Vector2(chunk_size, chunk_size)))
+
+func _input(event):
+	if event.is_action_pressed("toggle_grass"):
+		visible = not visible
+
