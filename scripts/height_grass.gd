@@ -24,10 +24,11 @@ func _ready():
 
 func add_grass_area(area):
 	var node = GPUParticles3D.new()
+	node.draw_order = 3
 	node.position = Vector3(area.position.x, 0, area.position.y)
 	node.custom_aabb = AABB(Vector3(0, source.aabb.position.y, 0), Vector3(area.size.x, source.aabb.size.y, area.size.y))
 	node.process_material = _particle_material
-	node.amount = area.get_area() * particles_per_meter * particles_per_meter
+	node.amount = area.get_area() * particles_per_meter * particles_per_meter * 2
 	node.draw_pass_1 = mesh
 	add_child(node)
 	return node

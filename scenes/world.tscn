@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=18 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
@@ -7,12 +7,24 @@
 [ext_resource type="Script" path="res://scripts/blueprint.gd" id="4_g5nwg"]
 [ext_resource type="Shader" path="res://shaders/heightmap.gdshader" id="5_q2kd8"]
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
+[ext_resource type="Shader" path="res://shaders/grass_item.gdshader" id="6_p0buu"]
+[ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
 [ext_resource type="Shader" path="res://shaders/grassdensity.gdshader" id="8_iwu04"]
 
 [sub_resource type="Environment" id="Environment_ok65l"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbja6"]
+render_priority = 0
+shader = ExtResource("6_p0buu")
+shader_parameter/grass_texture = ExtResource("7_kjetl")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4x1m3"]
+material = SubResource("ShaderMaterial_sbja6")
+size = Vector2(2, 1)
+center_offset = Vector3(0, 0.5, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sf6mf"]
 
@@ -42,10 +54,13 @@ offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
-layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Pos" type="Label" parent="Counters"]
-layout_mode = 2
+offset_top = 27.0
+offset_right = 40.0
+offset_bottom = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 16, -8)
@@ -59,9 +74,12 @@ source = NodePath("../Blueprint")
 [node name="HeightGrass" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
 transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 1, 5.96046e-08, -4.76837e-07, 1.19209e-07)
 source = NodePath("../Blueprint")
+mesh = SubResource("QuadMesh_4x1m3")
+chunk_size = 16
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)
+light_energy = 0.652
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_sf6mf")

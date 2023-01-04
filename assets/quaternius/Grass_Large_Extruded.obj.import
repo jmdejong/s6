@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b5c2rx087mho4"
+path="res://.godot/imported/Grass_Large_Extruded.obj-6577285983b1dee0cd7575c481faf850.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Grass_Large_Extruded.obj-6577285983b1dee0cd7575c481faf850.mesh"]
+
+source_file="res://assets/quaternius/Grass_Large_Extruded.obj"
+dest_files=["res://.godot/imported/Grass_Large_Extruded.obj-6577285983b1dee0cd7575c481faf850.mesh", "res://.godot/imported/Grass_Large_Extruded.obj-6577285983b1dee0cd7575c481faf850.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

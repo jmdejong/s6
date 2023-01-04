@@ -68,14 +68,20 @@ uint hash(uint x) {
 
 
 void start() {
-	float rot = rand_from_seed(hash(INDEX)) * TAU;
-	uint pind = INDEX * 101u % (side * side);
+	uint ind = INDEX / 2u;
+	bool back = INDEX % 2u == 1u;
+	float rot = rand_from_seed(hash(ind)) * TAU;
+	if (back) {
+		rot += PI;
+// 		ACTIVE = false;
+	}
+	uint pind = ind * 101u % (side * side);
 	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
-	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(INDEX * 7u + 53u)) - 0.5, rand_from_seed(hash(INDEX * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
+	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(ind * 7u + 53u)) - 0.5, rand_from_seed(hash(ind * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
 	float h = height_at(pos);
 	vec2 uv = (pos - area_min.xz) / area_size.xz;
 	float density = texture(grass_density, uv).r;
-	if (texture(grass_density, uv).r < rand_from_seed(hash(INDEX * 103u + 13u))) {
+	if (texture(grass_density, uv).r < rand_from_seed(hash(ind * 103u + 13u))) {
 		ACTIVE = false;
 	}
 	TRANSFORM = mat4(
