@@ -4,8 +4,7 @@ extends Node3D
 @export var mesh: Mesh
 @export var chunk_size = 32
 @export var chunk_distance = 4
-@export var max_chunks = 100
-@export var particles_per_meter = 2
+@export var particles_per_meter : float = 2
 
 var _last_viewpoint = null
 var _loaded_chunks = {}
@@ -59,6 +58,8 @@ func update_viewpoint(pos3):
 			var v = Vector2(x, y)
 			if not (v in _loaded_chunks):
 				_loaded_chunks[v] = add_grass_area(Rect2(v, Vector2(chunk_size, chunk_size)))
+
+	_particle_material.set_shader_parameter("viewpoint", pos3)
 
 func _input(event):
 	if event.is_action_pressed("toggle_grass"):

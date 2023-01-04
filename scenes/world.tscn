@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=20 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
@@ -11,7 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
 [ext_resource type="Shader" path="res://shaders/grassdensity.gdshader" id="8_iwu04"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wvqfo"]
+sky_top_color = Color(0.313726, 0.462745, 1, 1)
+
+[sub_resource type="Sky" id="Sky_6300r"]
+sky_material = SubResource("ProceduralSkyMaterial_wvqfo")
+
 [sub_resource type="Environment" id="Environment_ok65l"]
+background_mode = 2
+sky = SubResource("Sky_6300r")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
@@ -60,7 +68,8 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 16, -8)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
 
 [node name="HeightMesh" parent="." node_paths=PackedStringArray("source") instance=ExtResource("3_f64ys")]
 source = NodePath("../Blueprint")
@@ -72,9 +81,8 @@ source = NodePath("../Blueprint")
 transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 1, 5.96046e-08, -4.76837e-07, 1.19209e-07)
 source = NodePath("../Blueprint")
 mesh = SubResource("QuadMesh_4x1m3")
-chunk_size = 16
-chunk_distance = 3
-max_chunks = 40
+chunk_size = 12
+particles_per_meter = 1.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)

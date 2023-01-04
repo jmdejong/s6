@@ -6,7 +6,8 @@ uniform vec3 area_size;
 uniform uint side;
 uniform float chunk_size;
 uniform sampler2D grass_density : filter_nearest;
-
+uniform vec3 pos3;
+uniform vec3 viewpoint;
 
 
 vec4 interpolate_sample(sampler2D tex, vec2 big_uv, int lod) {
@@ -30,7 +31,6 @@ vec4 interpolate_sample(sampler2D tex, vec2 big_uv, int lod) {
 	);
 }
 
-
 float height_at(vec2 position) {
 	vec2 uv = (position - area_min.xz) / area_size.xz;
 	vec4 tex = interpolate_sample(noise, uv, 0);
@@ -38,8 +38,6 @@ float height_at(vec2 position) {
 	return (tex.x + tex.y / 255.0 ) * area_size.y + area_min.y;
 // 	return (tex.x) * area_size.y + area_min.y;
 }
-
-
 
 float rand_from_seed(in uint seed) {
 	int k;
@@ -63,9 +61,6 @@ uint hash(uint x) {
 	return x;
 }
 
-// const float side = 64.0;
-// const uint uside = 64u;
-
 
 void start() {
 	uint ind = INDEX / 2u;
@@ -81,7 +76,13 @@ void start() {
 	float h = height_at(pos);
 	vec2 uv = (pos - area_min.xz) / area_size.xz;
 	float density = texture(grass_density, uv).r;
-	if (texture(grass_density, uv).r < rand_from_seed(hash(ind * 103u + 13u))) {
+	vec2 diff = viewpoint.xz - pos;
+	vec2 diffsq = diff * diff;
+	float distsq = diffsq.x + diffsq.y;
+	if (distsq > chunk_size* chunk_size* 2.0) {
+		density = min(density, 0.4);
+	}
+	if (density < rand_from_seed(hash(ind * 103u + 13u))) {
 		ACTIVE = false;
 	}
 	TRANSFORM = mat4(
@@ -90,6 +91,7 @@ void start() {
 		vec4( -sin(rot), 0.0, cos(rot), 0.0),
 		vec4( pos.x, h, pos.y, 1.0)
 	);
+
 }
 
 void process() {

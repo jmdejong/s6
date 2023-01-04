@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+#include "shaders/fastnoiselite.gdshaderinc"
+
 uniform sampler2D heightmap;
 uniform vec3 area_min;
 uniform vec3 area_size;
@@ -33,11 +35,14 @@ float height_at(vec2 position) {
 }
 
 void fragment() {
+
+	fnl_state noise = fnlCreateState(2);
 	vec2 pos = UV * area_size.xz + area_min.xz;
 	float h = height_at(pos);
 	float density = 0.0;
-	if (h > 2.0 && h < 20.0) {
-		density = 0.7;
+	if (h > 2.0) {
+		float d =  (fnlGetNoise2D(noise, pos.x/3.0, pos.y/3.0) + 0.5);
+		density = d - (h - 2.0)/40.0;
 	}
 	COLOR = vec4(density, density, density, 1.0);
 }

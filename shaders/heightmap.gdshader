@@ -36,10 +36,11 @@ float height_at(vec2 pos) {
 		+ snoise(pos / 16.0) * 0.006;
 		+ snoise(pos / 7.0) * 0.004;
 	float h = (pow5(n+0.1)+ n/3.0 + 0.15) * 80.0;
-// 	float n2 = fnlGetNoise2D(noise, pos.x/5.0, pos.y/5.0);
-// 	float h2 = (pow5(n2+0.0)+ n2/3.0 + 0.15) * 80.0;
+	float n2 = fnlGetNoise2D(noise, pos.x/6.0, pos.y/6.0);
+// 	float h2 = (pow5(n2) + 0.1) * 50.0;
+	float h2 = (pow5(n2+0.0)+ n2/3.0 + 0.10) * 100.0;
 	float shore = shore_factor(pos);
-	return mix(base_height, h, shore);
+	return mix(base_height, h2, shore);
 }
 
 
