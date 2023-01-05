@@ -28,6 +28,7 @@ float shore_factor(vec2 pos) {
 float height_at(vec2 pos) {
 
 	fnl_state noise = fnlCreateState(1);
+	noise.octaves = 8;
 
 	float n = snoise(pos / 800.0) * 0.7
 		+ snoise(pos / 200.0) * 0.19

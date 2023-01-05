@@ -4,14 +4,18 @@ extends Node3D
 @export var center_size = 16
 @export var snap_size = 32
 @export var view_dist = 2048
-@export var height_material: Material
+@export var textures : TextureLayered
 @export var water_material: Material
 @export var source: Node
+@export var texture_size = 2
 
 var aabb
 var area
 var chunk_mesh
 var water_mesh
+
+var _height_material = ShaderMaterial.new()
+var _mesh_shader = preload("res://shaders/meshterrain.gdshader")
 
 const tile_centers = [
 	Vector2(-1.5, -1.5),
@@ -36,12 +40,14 @@ func _ready():
 	await source.await_creation()
 	aabb = source.aabb
 	area = Rect2(aabb.position.x, aabb.position.z, aabb.size.x, aabb.size.z)
+	_height_material.shader = _mesh_shader
+	_height_material.set_shader_parameter("noise", source.height_texture())
+	_height_material.set_shader_parameter("area_min", aabb.position)
+	_height_material.set_shader_parameter("area_size", aabb.size)
+	_height_material.set_shader_parameter("textures", textures)
+	_height_material.set_shader_parameter("texture_size", texture_size)
 	
-	height_material.set_shader_parameter("noise", source.height_texture())
-	height_material.set_shader_parameter("area_min", aabb.position)
-	height_material.set_shader_parameter("area_size", aabb.size)
-	
-	chunk_mesh = create_mesh(height_material)
+	chunk_mesh = create_mesh(_height_material)
 	water_mesh = create_mesh(water_material)
 
 	var size = center_size

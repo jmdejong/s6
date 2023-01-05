@@ -7,9 +7,11 @@ render_mode world_vertex_coords;
 uniform sampler2D noise;
 uniform vec3 area_min;
 uniform vec3 area_size;
-uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
-uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
-uniform sampler2D stone_texture : source_color, filter_linear_mipmap;
+// uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
+// uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
+// uniform sampler2D stone_texture : source_color, filter_linear_mipmap;
+uniform sampler2DArray textures : source_color, filter_linear_mipmap;
+// uniform sampler2DArray texes : source_color, filter_linear_mipmap;
 uniform float texture_size;
 
 varying vec3 normals;
@@ -70,12 +72,12 @@ void fragment() {
 	vec4 t =
 		mix(
 // 			vec4(0.4, 0.4, 0.4, 1.0),
-			texture(stone_texture, tex_uv),
+			texture(textures, vec3(tex_uv, 2.0)),
 			mix(
 // 				vec4(1.0, 1.0, 0.1, 1),
 // 				vec4(0.0, 1.0, 0.1, 1),
-				texture(sand_texture, tex_uv),
-				texture(grass_texture, tex_uv),
+				texture(textures, vec3(tex_uv, 1.0)),
+				texture(textures, vec3(tex_uv, 0.0)),
 				clamp((p.y + snoise(p.xz * 20.0) * 0.02 + snoise(p.xz * 1.0) * 0.1 + snoise(p.xz * 0.05) * 0.4 - 1.5) * 50.0, 0.0, 1.0)
 			),
 			clamp((normals.y - 0.7)* 100.0, 0, 1)

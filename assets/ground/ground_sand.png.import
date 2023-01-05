@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://ugfq08bajhk7"
+path="res://.godot/imported/ground_sand.png-87a491b7964b6dc642113c745812d432.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/ground/ground_sand.png"
+dest_files=["res://.godot/imported/ground_sand.png-87a491b7964b6dc642113c745812d432.ctexarray"]
+
+[params]
+
+compress/mode=1
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/bptc_ldr=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8

@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://cr1oebgchevnt"
+path="res://.godot/imported/ground_stone.png-184da3cb45fd08c7184054ec7a14cc4d.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/ground/ground_stone.png"
+dest_files=["res://.godot/imported/ground_stone.png-184da3cb45fd08c7184054ec7a14cc4d.ctexarray"]
+
+[params]
+
+compress/mode=1
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/bptc_ldr=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8
