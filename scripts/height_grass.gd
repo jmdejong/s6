@@ -27,7 +27,7 @@ func add_grass_area(area):
 	node.position = Vector3(area.position.x, 0, area.position.y)
 	node.custom_aabb = AABB(Vector3(0, source.aabb.position.y, 0), Vector3(area.size.x, source.aabb.size.y, area.size.y))
 	node.process_material = _particle_material
-	node.amount = area.get_area() * particles_per_meter * particles_per_meter * 2
+	node.amount = area.get_area() * particles_per_meter * particles_per_meter
 	node.draw_pass_1 = mesh
 	add_child(node)
 	return node
@@ -35,6 +35,7 @@ func add_grass_area(area):
 
 
 func update_viewpoint(pos3):
+	_particle_material.set_shader_parameter("viewpoint", pos3)
 	var pos = Vector2(pos3.x, pos3.z)
 	var snapped_viewpoint = pos.snapped(Vector2(chunk_size, chunk_size))
 	if _last_viewpoint == snapped_viewpoint or not source.is_ready:
@@ -59,7 +60,6 @@ func update_viewpoint(pos3):
 			if not (v in _loaded_chunks):
 				_loaded_chunks[v] = add_grass_area(Rect2(v, Vector2(chunk_size, chunk_size)))
 
-	_particle_material.set_shader_parameter("viewpoint", pos3)
 
 func _input(event):
 	if event.is_action_pressed("toggle_grass"):
