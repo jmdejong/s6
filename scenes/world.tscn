@@ -1,16 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=17 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
 [ext_resource type="Script" path="res://scripts/counters.gd" id="3_k87n2"]
 [ext_resource type="PackedScene" uid="uid://cso43mjodhv5w" path="res://scenes/height_collisions.tscn" id="4_7w3qk"]
-[ext_resource type="Script" path="res://scripts/blueprint.gd" id="4_g5nwg"]
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
 [ext_resource type="Shader" path="res://shaders/grass_item.gdshader" id="6_p0buu"]
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
-[ext_resource type="Shader" path="res://shaders/grassdensity.gdshader" id="8_iwu04"]
-[ext_resource type="Shader" path="res://shaders/height_source.gdshader" id="9_nyhe3"]
-[ext_resource type="Shader" path="res://shaders/normal_source.gdshader" id="10_2o3b5"]
+[ext_resource type="PackedScene" uid="uid://ktlm8ftijwrn" path="res://scenes/blueprint.tscn" id="8_vb857"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wvqfo"]
 sky_top_color = Color(0.313726, 0.462745, 1, 1)
@@ -35,26 +32,10 @@ material = SubResource("ShaderMaterial_sbja6")
 size = Vector2(2, 1)
 center_offset = Vector3(0, 0.5, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5812"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_sf6mf"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxc4f"]
-shader = ExtResource("9_nyhe3")
-shader_parameter/area_min = Vector3(-2048, -256, -2048)
-shader_parameter/area_size = Vector3(1024, 1024, 1024)
-shader_parameter/shore_offset = 512.0
-shader_parameter/base_height = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_juoyq"]
-shader = ExtResource("10_2o3b5")
-shader_parameter/area_min = Vector3(-2048, -256, -2048)
-shader_parameter/area_size = Vector3(1024, 1024, 1024)
-shader_parameter/shore_offset = null
-shader_parameter/base_height = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5d2e0"]
-shader = ExtResource("8_iwu04")
-shader_parameter/area_min = null
-shader_parameter/area_size = null
+material = SubResource("StandardMaterial3D_l5812")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_o0m4k"]
 viewport_path = NodePath("Blueprint/GrassView")
@@ -70,8 +51,13 @@ offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Pos" type="Label" parent="Counters"]
+offset_top = 27.0
+offset_right = 40.0
+offset_bottom = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 unique_name_in_owner = true
@@ -91,44 +77,13 @@ chunk_size = 12
 particles_per_meter = 1.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.939693, -0.296198, 0.17101, 0, 0.5, 0.866025, -0.34202, -0.813798, 0.469846, 0, 4.52354, 0)
+transform = Transform3D(0.939693, -0.17101, 0.296198, 0, 0.866026, 0.5, -0.34202, -0.469846, 0.813797, 0, 4.52354, 0)
+shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_sf6mf")
 
-[node name="Blueprint" type="Node" parent="."]
-script = ExtResource("4_g5nwg")
-
-[node name="HeightView" type="SubViewport" parent="Blueprint"]
-render_target_clear_mode = 2
-render_target_update_mode = 1
-
-[node name="Image" type="ColorRect" parent="Blueprint/HeightView"]
-material = SubResource("ShaderMaterial_rxc4f")
-custom_minimum_size = Vector2(4096, 4096)
-offset_right = 4096.0
-offset_bottom = 4096.0
-
-[node name="NormalView" type="SubViewport" parent="Blueprint"]
-size = Vector2i(1024, 1024)
-render_target_clear_mode = 2
-render_target_update_mode = 1
-
-[node name="Image" type="ColorRect" parent="Blueprint/NormalView"]
-material = SubResource("ShaderMaterial_juoyq")
-custom_minimum_size = Vector2(4096, 4096)
-offset_right = 4096.0
-offset_bottom = 4096.0
-
-[node name="GrassView" type="SubViewport" parent="Blueprint"]
-render_target_clear_mode = 2
-render_target_update_mode = 1
-
-[node name="Image" type="ColorRect" parent="Blueprint/GrassView"]
-material = SubResource("ShaderMaterial_5d2e0")
-custom_minimum_size = Vector2(4096, 4096)
-offset_right = 4096.0
-offset_bottom = 4096.0
+[node name="Blueprint" parent="." instance=ExtResource("8_vb857")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false

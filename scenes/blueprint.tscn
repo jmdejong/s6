@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://ktlm8ftijwrn"]
+
+[ext_resource type="Script" path="res://scripts/blueprint.gd" id="1_ngrhy"]
+[ext_resource type="Shader" path="res://shaders/height_source.gdshader" id="2_bpya4"]
+[ext_resource type="Shader" path="res://shaders/normal_source.gdshader" id="3_b4khk"]
+[ext_resource type="Shader" path="res://shaders/grassdensity.gdshader" id="4_iwdjr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxc4f"]
+shader = ExtResource("2_bpya4")
+shader_parameter/area_min = Vector3(-2048, -256, -2048)
+shader_parameter/area_size = Vector3(1024, 1024, 1024)
+shader_parameter/shore_offset = 512.0
+shader_parameter/base_height = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_juoyq"]
+shader = ExtResource("3_b4khk")
+shader_parameter/area_min = Vector3(-2048, -256, -2048)
+shader_parameter/area_size = Vector3(1024, 1024, 1024)
+shader_parameter/shore_offset = null
+shader_parameter/base_height = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5d2e0"]
+shader = ExtResource("4_iwdjr")
+shader_parameter/area_min = null
+shader_parameter/area_size = null
+
+[node name="Blueprint" type="Node"]
+script = ExtResource("1_ngrhy")
+
+[node name="HeightView" type="SubViewport" parent="."]
+render_target_clear_mode = 2
+render_target_update_mode = 1
+
+[node name="Image" type="ColorRect" parent="HeightView"]
+material = SubResource("ShaderMaterial_rxc4f")
+custom_minimum_size = Vector2(4096, 4096)
+offset_right = 4096.0
+offset_bottom = 4096.0
+
+[node name="NormalView" type="SubViewport" parent="."]
+size = Vector2i(1024, 1024)
+render_target_clear_mode = 2
+render_target_update_mode = 1
+
+[node name="Image" type="ColorRect" parent="NormalView"]
+material = SubResource("ShaderMaterial_juoyq")
+custom_minimum_size = Vector2(4096, 4096)
+offset_right = 4096.0
+offset_bottom = 4096.0
+
+[node name="GrassView" type="SubViewport" parent="."]
+render_target_clear_mode = 2
+render_target_update_mode = 1
+
+[node name="Image" type="ColorRect" parent="GrassView"]
+material = SubResource("ShaderMaterial_5d2e0")
+custom_minimum_size = Vector2(4096, 4096)
+offset_right = 4096.0
+offset_bottom = 4096.0

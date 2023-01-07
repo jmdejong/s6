@@ -30,6 +30,7 @@ func add_grass_area(area):
 	node.process_material = _particle_material
 	node.amount = area.get_area() * particles_per_meter * particles_per_meter
 	node.draw_pass_1 = mesh
+	node.cast_shadow = false
 	add_child(node)
 	return node
 

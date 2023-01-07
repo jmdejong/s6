@@ -91,6 +91,7 @@ func add_chunk(pos: Vector2, size: float, mesh: Mesh):
 	chunk.position = Vector3(pos.x, 0, pos.y)
 	chunk.scale = Vector3(size, 1, size)
 	chunk.mesh = mesh
+	chunk.cast_shadow = true
 	$Meshes.add_child(chunk)
 	return chunk
 

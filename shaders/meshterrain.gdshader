@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode world_vertex_coords;
+render_mode world_vertex_coords, specular_disabled;
 
 
 #include "shaders/ashima_simplex.gdshaderinc"
@@ -9,7 +9,6 @@ render_mode world_vertex_coords;
 // uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
 // uniform sampler2D stone_texture : source_color, filter_linear_mipmap;
 uniform sampler2DArray textures : source_color, filter_linear_mipmap;
-// uniform sampler2DArray texes : source_color, filter_linear_mipmap;
 uniform float texture_size;
 
 #include "shaders/heightsave.gdshaderinc"
@@ -51,9 +50,14 @@ void fragment() {
 			),
 			clamp((normals.y - 0.7)* 100.0, 0, 1)
 		);
-	float sea_height = clamp(1.0 + p.y/4.0, 0.0, 1.0);
-	vec3 blue = vec3(sea_height, sea_height, 1.0);
-	ALBEDO = t.xyz * blue * blue;
+	float blueness = clamp(1.0 + (p.y)/8.0, 0.1, 1.0);
+	float darkness = clamp(1.0 + (p.y)/16.0, 0.1, 1.0);
+// 	float blueness = smoothstep(-4.0, 0.0, p.y);
+	vec3 underwater = vec3(blueness, blueness, darkness);
+	ALBEDO = t.xyz * underwater * underwater * underwater* underwater;
+// 	if (p.y < 0.0) {
+// 		ALBEDO *= underwater * underwater * underwater* underwater;
+// 	}
 // 	ALBEDO = mix(
 // 		texture(stone_texture, tex_uv).xyz,
 // 		mix(

@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode vertex_lighting;
+render_mode vertex_lighting, specular_disabled;
 
 uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
 
