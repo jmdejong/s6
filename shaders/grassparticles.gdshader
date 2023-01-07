@@ -1,8 +1,9 @@
 shader_type particles;
 
-uniform sampler2D noise;
-uniform vec3 area_min;
-uniform vec3 area_size;
+
+
+#include "shaders/heightsave.gdshaderinc"
+
 uniform uint side;
 uniform float chunk_size;
 uniform sampler2D grass_density : filter_nearest;
@@ -10,34 +11,6 @@ uniform vec3 pos3;
 uniform vec3 viewpoint;
 
 
-vec4 interpolate_sample(sampler2D tex, vec2 big_uv, int lod) {
-	ivec2 size = textureSize(tex, lod);
-	vec2 xy = big_uv * vec2(size);
-	ivec2 ixy = ivec2(floor(xy));
-	vec2 uv = fract(xy);
-// 	return texelFetch(tex, ixy, lod);
-	return mix(
-			mix(
-			texelFetch(tex, ixy, lod),
-			texelFetch(tex, ixy + ivec2(1, 0), lod),
-			uv.x
-		),
-		mix(
-			texelFetch(tex, ixy + ivec2(0, 1), lod),
-			texelFetch(tex, ixy + ivec2(1, 1), lod),
-			uv.x
-		),
-		uv.y
-	);
-}
-
-float height_at(vec2 position) {
-	vec2 uv = (position - area_min.xz) / area_size.xz;
-	vec4 tex = interpolate_sample(noise, uv, 0);
-// 	vec4 tex = texture(noise, uv);
-	return (tex.x + tex.y / 255.0 ) * area_size.y + area_min.y;
-// 	return (tex.x) * area_size.y + area_min.y;
-}
 
 float rand_from_seed(in uint seed) {
 	int k;
@@ -74,7 +47,7 @@ void start() {
 	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
 	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(ind * 7u + 53u)) - 0.5, rand_from_seed(hash(ind * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
 	float h = height_at(pos);
-	vec2 uv = (pos - area_min.xz) / area_size.xz;
+	vec2 uv = uv_at(pos);
 	float density = texture(grass_density, uv).r;
 	vec2 dir = vec2(-sin(rot), cos(rot));
 	float dp = dot(dir.yx, normalize(pos - viewpoint.xz));

@@ -4,9 +4,7 @@ render_mode world_vertex_coords;
 
 #include "shaders/ashima_simplex.gdshaderinc"
 
-uniform sampler2D noise;
-uniform vec3 area_min;
-uniform vec3 area_size;
+
 // uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
 // uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
 // uniform sampler2D stone_texture : source_color, filter_linear_mipmap;
@@ -14,49 +12,20 @@ uniform sampler2DArray textures : source_color, filter_linear_mipmap;
 // uniform sampler2DArray texes : source_color, filter_linear_mipmap;
 uniform float texture_size;
 
+#include "shaders/heightsave.gdshaderinc"
+
 varying vec3 normals;
 // varying vec2 tex_uv;
 varying vec3 p;
 
-vec4 interpolate_sample(sampler2D tex, vec2 big_uv, int lod) {
-	ivec2 size = textureSize(tex, lod);
-	vec2 xy = big_uv * vec2(size);
-	ivec2 ixy = ivec2(floor(xy));
-	vec2 uv = fract(xy);
-// 	return texelFetch(tex, ixy, lod);
-	return mix(
-			mix(
-			texelFetch(tex, ixy, lod),
-			texelFetch(tex, ixy + ivec2(1, 0), lod),
-			uv.x
-		),
-		mix(
-			texelFetch(tex, ixy + ivec2(0, 1), lod),
-			texelFetch(tex, ixy + ivec2(1, 1), lod),
-			uv.x
-		),
-		uv.y
-	);
-}
-
-
-float height_at(vec2 position) {
-	vec2 uv = (position - area_min.xz) / area_size.xz;
-	vec4 tex = interpolate_sample(noise, uv, 0);
-// 	vec4 tex = texture(noise, uv);
-	return (tex.x + tex.y / 255.0 ) * area_size.y + area_min.y;
-}
 
 
 void vertex() {
-	vec2 pos = clamp(VERTEX.xz, area_min.xz, area_size.xz + area_min.xz);
+// 	vec2 pos = clamp(VERTEX.xz, area_min.xz, area_size.xz + area_min.xz);
+	vec2 pos = VERTEX.xz;
 	float k = height_at(pos);
 	VERTEX.y = k;
-	float delta = area_size.x / float(textureSize(noise, 0).x);
-	normals = normalize(-cross(
-		vec3(-delta, k - height_at(pos + vec2(-delta, 0)), 0),
-		vec3(0, k - height_at(pos + vec2(0, -delta)), -delta)
-	));
+	normals = normal_at(pos);
 	NORMAL = normals;
 	p = VERTEX;
 }

@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var chunk_resolution = 64
-@export var center_size = 16
+@export var center_size = 64
 @export var snap_size = 32
 @export var view_dist = 2048
 @export var textures : TextureLayered
@@ -41,7 +41,8 @@ func _ready():
 	aabb = source.aabb
 	area = Rect2(aabb.position.x, aabb.position.z, aabb.size.x, aabb.size.z)
 	_height_material.shader = _mesh_shader
-	_height_material.set_shader_parameter("noise", source.height_texture())
+	_height_material.set_shader_parameter("height_input", source.height_texture())
+	_height_material.set_shader_parameter("normal_input", source.normal_texture())
 	_height_material.set_shader_parameter("area_min", aabb.position)
 	_height_material.set_shader_parameter("area_size", aabb.size)
 	_height_material.set_shader_parameter("textures", textures)
