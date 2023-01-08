@@ -51,13 +51,10 @@ offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 
 [node name="Pos" type="Label" parent="Counters"]
-offset_top = 27.0
-offset_right = 40.0
-offset_bottom = 50.0
+layout_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 unique_name_in_owner = true

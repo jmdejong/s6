@@ -28,6 +28,9 @@ func _input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		$Head.rotate_z(event.relative.y * MOUSE_SENSITIVITY)
+		# $Head.rotate_z(event.relative.y * MOUSE_SENSITIVITY)
+		$Head.rotation.x = clamp($Head.rotation.x - event.relative.y * MOUSE_SENSITIVITY, -PI/2, PI/2)
+		# $Head.rotation.z = clamp($Head.rotation.z, -PI/2, PI/2)
+		# print($Head.rotation)
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 

@@ -41,8 +41,9 @@ func _ready():
 	aabb = source.aabb
 	area = Rect2(aabb.position.x, aabb.position.z, aabb.size.x, aabb.size.z)
 	_height_material.shader = _mesh_shader
-	_height_material.set_shader_parameter("height_input", source.height_texture())
-	_height_material.set_shader_parameter("normal_input", source.normal_texture())
+	_height_material.set_shader_parameter("height_input", source.height_texture)
+	_height_material.set_shader_parameter("normal_input", source.normal_texture)
+	_height_material.set_shader_parameter("current_texture", source.current_texture)
 	_height_material.set_shader_parameter("area_min", aabb.position)
 	_height_material.set_shader_parameter("area_size", aabb.size)
 	_height_material.set_shader_parameter("textures", textures)

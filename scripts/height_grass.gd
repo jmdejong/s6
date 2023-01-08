@@ -18,9 +18,9 @@ func _ready():
 	_particle_material.set_shader_parameter("area_size", source.aabb.size)
 	_particle_material.set_shader_parameter("side", particles_per_meter * chunk_size)
 	_particle_material.set_shader_parameter("chunk_size", chunk_size)
-	_particle_material.set_shader_parameter("height_input", source.height_texture())
-	_particle_material.set_shader_parameter("normal_input", source.normal_texture())
-	_particle_material.set_shader_parameter("grass_density", source.grass_density_texture())
+	_particle_material.set_shader_parameter("height_input", source.height_texture)
+	_particle_material.set_shader_parameter("normal_input", source.normal_texture)
+	_particle_material.set_shader_parameter("grass_density", source.grass_density_texture)
 
 func add_grass_area(area):
 	var node = GPUParticles3D.new()
@@ -31,6 +31,7 @@ func add_grass_area(area):
 	node.amount = area.get_area() * particles_per_meter * particles_per_meter
 	node.draw_pass_1 = mesh
 	node.cast_shadow = false
+	node.lifetime = 0.1
 	add_child(node)
 	return node
 

@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://ktlm8ftijwrn"]
+[gd_scene load_steps=10 format=3 uid="uid://ktlm8ftijwrn"]
 
 [ext_resource type="Script" path="res://scripts/blueprint.gd" id="1_ngrhy"]
 [ext_resource type="Shader" path="res://shaders/height_source.gdshader" id="2_bpya4"]
 [ext_resource type="Shader" path="res://shaders/normal_source.gdshader" id="3_b4khk"]
 [ext_resource type="Shader" path="res://shaders/grassdensity.gdshader" id="4_iwdjr"]
+[ext_resource type="Shader" path="res://shaders/current_texture_source.gdshader" id="5_ak5wi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rxc4f"]
 shader = ExtResource("2_bpya4")
-shader_parameter/area_min = Vector3(-2048, -256, -2048)
+shader_parameter/area_min = Vector3(0, -256, 0)
 shader_parameter/area_size = Vector3(1024, 1024, 1024)
 shader_parameter/shore_offset = 512.0
 shader_parameter/base_height = null
@@ -24,16 +25,22 @@ shader = ExtResource("4_iwdjr")
 shader_parameter/area_min = null
 shader_parameter/area_size = null
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy0dv"]
+shader = ExtResource("5_ak5wi")
+shader_parameter/area_min = null
+shader_parameter/area_size = Vector3(1024, 0, 1024)
+
 [node name="Blueprint" type="Node"]
 script = ExtResource("1_ngrhy")
 
 [node name="HeightView" type="SubViewport" parent="."]
+size = Vector2i(1024, 1024)
 render_target_clear_mode = 2
 render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="HeightView"]
 material = SubResource("ShaderMaterial_rxc4f")
-custom_minimum_size = Vector2(4096, 4096)
+custom_minimum_size = Vector2(1024, 1024)
 offset_right = 4096.0
 offset_bottom = 4096.0
 
@@ -55,5 +62,16 @@ render_target_update_mode = 1
 [node name="Image" type="ColorRect" parent="GrassView"]
 material = SubResource("ShaderMaterial_5d2e0")
 custom_minimum_size = Vector2(4096, 4096)
+offset_right = 4096.0
+offset_bottom = 4096.0
+
+[node name="CurrentTextureView" type="SubViewport" parent="."]
+size = Vector2i(1024, 1024)
+render_target_clear_mode = 2
+render_target_update_mode = 1
+
+[node name="Image" type="ColorRect" parent="CurrentTextureView"]
+material = SubResource("ShaderMaterial_oy0dv")
+custom_minimum_size = Vector2(1024, 1024)
 offset_right = 4096.0
 offset_bottom = 4096.0
