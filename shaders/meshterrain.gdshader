@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode world_vertex_coords, specular_disabled;
+render_mode world_vertex_coords, specular_disabled, diffuse_lambert;
 
 
 #include "shaders/ashima_simplex.gdshaderinc"
@@ -95,25 +95,6 @@ vec4 interpolate_texture(vec2 big_uv, out vec4 te) {
 		teq(t.z, t) * c.z +
 		teq(t.w, t) * c.w;
 	return tt;
-// 	return vec4((
-// 		ignore_rest(texelFetch(current_texture, ixy, 0)) * c.x +
-// 		ignore_rest(texelFetch(current_texture, ixy + ivec2(1, 0), 0)) * c.y +
-// 		ignore_rest(texelFetch(current_texture, ixy + ivec2(0, 1), 0)) * c.z +
-// 		ignore_rest(texelFetch(current_texture, ixy + ivec2(1, 1), 0)) * c.w
-// 	).xyz, 0);
-// 	return mix(
-// 		mix(
-// 			texelFetch(current_texture, ixy, 0),
-// 			texelFetch(current_texture, ixy + ivec2(1, 0), 0),
-// 			smoothstep(0.2, 0.8, uv.x)
-// 		),
-// 		mix(
-// 			texelFetch(current_texture, ixy + ivec2(0, 1), 0),
-// 			texelFetch(current_texture, ixy + ivec2(1, 1), 0),
-// 			smoothstep(0.2, 0.8, uv.x)
-// 		),
-// 		smoothstep(0.2, 0.8, uv.y)
-// 	).xyz;
 }
 
 
@@ -134,4 +115,5 @@ void fragment() {
 // 	float blueness = smoothstep(-4.0, 0.0, p.y);
 	vec3 underwater = vec3(blueness, blueness, darkness);
 	ALBEDO = t.xyz * underwater * underwater * underwater* underwater;
+// 	ALBEDO = vec3(0, 0, 0);
 }

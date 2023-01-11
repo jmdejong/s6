@@ -35,33 +35,26 @@ uint hash(uint x) {
 	return x;
 }
 
-
 void start() {
 	uint ind = INDEX;
-// 	bool back = INDEX % 2u == 1u;
 	float rot = rand_from_seed(hash(ind)) * TAU;
-// 	if (back) {
-// 		rot += PI;
-// 		ACTIVE = false;
-// 	}
 	uint pind = ind * 101u % (side * side);
 	vec2 dpos = vec2(float(pind / side), float(pind % side)) / float(side) * chunk_size;
-	vec2 pos = dpos + EMISSION_TRANSFORM[3].xz + vec2(rand_from_seed(hash(ind * 7u + 53u)) - 0.5, rand_from_seed(hash(ind * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
+	vec2 core_pos = EMISSION_TRANSFORM[3].xz;
+	vec2 base_pos = core_pos +  chunk_size - mod(core_pos + dpos, chunk_size);
+	vec2 pos = base_pos + vec2(rand_from_seed(hash(ind * 7u + 53u)) - 0.5, rand_from_seed(hash(ind * 53u + 7u)) - 0.5) / (float(side) / chunk_size);
 	float h = height_at(pos);
 	vec2 uv = uv_at(pos);
 	float density = texture(grass_density, uv).r;
 	vec2 dir = vec2(-sin(rot), cos(rot));
-	float dp = dot(dir.yx, normalize(pos - viewpoint.xz));
 	vec2 diff = viewpoint.xz - pos;
 	vec2 diffsq = diff * diff;
 	float distsq = diffsq.x + diffsq.y;
+
 	if (distsq > reduce_radius_sq ) {
 		density = min(density, 0.4);
 	}
-	if (density < rand_from_seed(hash(ind * 103u + 13u)) /*|| distsq > reduce_radius_sq && abs(dp) < 0.5*/) {
-		ACTIVE = false;
-	}
-// 	dir *= sign(dp);
+	ACTIVE = density > rand_from_seed(hash(ind * 103u + 13u));
 
 	TRANSFORM = mat4(
 		vec4( -dir.x, 0.0, dir.y, 0.0),
@@ -73,5 +66,4 @@ void start() {
 }
 
 void process() {
-	// Place process code here.
 }

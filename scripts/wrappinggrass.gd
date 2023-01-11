@@ -4,13 +4,15 @@ extends Node3D
 @export var mesh: Mesh
 @export var chunk_size = 32
 @export var chunk_distance = 4
+
+@export var snap_size = 1
 @export var particles_per_meter : float = 2
 @export var reduce_radius : float = 16
 
 var _last_viewpoint = null
 var _loaded_chunks = {}
 var _particle_material = ShaderMaterial.new()
-var _particle_shader = preload("res://shaders/grassparticles.gdshader")
+var _particle_shader = preload("res://shaders/wrappinggrass.gdshader")
 
 func _ready():
 	await source.await_creation()
@@ -23,12 +25,16 @@ func _ready():
 	_particle_material.set_shader_parameter("normal_input", source.normal_texture)
 	_particle_material.set_shader_parameter("grass_density", source.grass_density_texture)
 	_particle_material.set_shader_parameter("reduce_radius_sq", reduce_radius * reduce_radius)
+	for x in range(-chunk_distance, chunk_distance + 1):
+		for y in range(-chunk_distance, chunk_distance + 1):
+			var chunk = add_grass_area(Rect2((x - 0.5) * chunk_size, (y - 0.5) * chunk_size, chunk_size, chunk_size))
+
 
 func add_grass_area(area):
 	var node = GPUParticles3D.new()
 	# node.draw_order = 3
 	node.position = Vector3(area.position.x, 0, area.position.y)
-	node.custom_aabb = AABB(Vector3(0, source.aabb.position.y, 0), Vector3(area.size.x, source.aabb.size.y, area.size.y))
+	node.custom_aabb = AABB(Vector3(-area.size.x / 2, source.aabb.position.y, -area.size.y / 2), Vector3(area.size.x, source.aabb.size.y, area.size.y))
 	node.process_material = _particle_material
 	node.amount = area.get_area() * particles_per_meter * particles_per_meter
 	node.draw_pass_1 = mesh
@@ -42,32 +48,34 @@ func add_grass_area(area):
 func update_viewpoint(pos3):
 	_particle_material.set_shader_parameter("viewpoint", pos3)
 	var pos = Vector2(pos3.x, pos3.z)
-	var snapped_viewpoint = pos.snapped(Vector2(chunk_size, chunk_size))
+	var snapped_viewpoint = pos.snapped(Vector2(snap_size, snap_size))
 	if _last_viewpoint == snapped_viewpoint or not source.is_ready:
 		return
 	_last_viewpoint = snapped_viewpoint
 
-	var dd = chunk_distance * chunk_size
+	position = Vector3(snapped_viewpoint.x, 0, snapped_viewpoint.y)
 
-	var to_clear = []
-	for chunkpos in _loaded_chunks:
-		var dp = (snapped_viewpoint - chunkpos).abs()
-		var d = max(dp.x, dp.y)
-		if d > dd + chunk_size:
-			to_clear.push_back(chunkpos)
-	for chunkpos in to_clear:
-		_loaded_chunks[chunkpos].queue_free()
-		_loaded_chunks.erase(chunkpos)
-
-	for x in range(snapped_viewpoint.x - dd, snapped_viewpoint.x + dd, chunk_size):
-		for y in range(snapped_viewpoint.y - dd, snapped_viewpoint.y + dd, chunk_size):
-			var v = Vector2(x, y)
-			if not (v in _loaded_chunks):
-				_loaded_chunks[v] = add_grass_area(Rect2(v, Vector2(chunk_size, chunk_size)))
+	# var dd = chunk_distance * chunk_size
+ #
+	# var to_clear = []
+	# for chunkpos in _loaded_chunks:
+	# 	var dp = (snapped_viewpoint - chunkpos).abs()
+	# 	var d = max(dp.x, dp.y)
+	# 	if d > dd + chunk_size:
+	# 		to_clear.push_back(chunkpos)
+	# for chunkpos in to_clear:
+	# 	_loaded_chunks[chunkpos].queue_free()
+	# 	_loaded_chunks.erase(chunkpos)
+ #
+	# for x in range(snapped_viewpoint.x - dd, snapped_viewpoint.x + dd, chunk_size):
+	# 	for y in range(snapped_viewpoint.y - dd, snapped_viewpoint.y + dd, chunk_size):
+	# 		var v = Vector2(x, y)
+	# 		if not (v in _loaded_chunks):
+	# 			_loaded_chunks[v] = add_grass_area(Rect2(v, Vector2(chunk_size, chunk_size)))
 
 
 func _input(event):
-	if event.is_action_pressed("toggle_grass"):
+	if event.is_action_pressed("toggle_grass_2"):
 		visible = not visible
 
 

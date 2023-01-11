@@ -4,7 +4,7 @@ Trying to build a heightmap terrain system.
 
 ![screenshot of heightmap terrain with a texture, some transparent water and some grass meshes](s6_world.png)
 
-Built in [Godot 4.0 beta 10](https://godotengine.org/article/dev-snapshot-godot-4-0-beta-10) (and will update with the most recent 4.0 version that's available).
+Built in [Godot 4.0 beta 11](https://godotengine.org/article/dev-snapshot-godot-4-0-beta-11#downloads) (and will likely update with the most recent 4.0 version that's available).
 
 ## Structure
 

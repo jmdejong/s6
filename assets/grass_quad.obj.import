@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://fqi8lplg7phf"
+path="res://.godot/imported/grass_quad.obj-6b08df18407cefa1324f3e0ce563a9a0.mesh"
+
+[deps]
+
+files=["res://.godot/imported/grass_quad.obj-6b08df18407cefa1324f3e0ce563a9a0.mesh"]
+
+source_file="res://assets/grass_quad.obj"
+dest_files=["res://.godot/imported/grass_quad.obj-6b08df18407cefa1324f3e0ce563a9a0.mesh", "res://.godot/imported/grass_quad.obj-6b08df18407cefa1324f3e0ce563a9a0.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(0.5, 0.5, 0.5)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
