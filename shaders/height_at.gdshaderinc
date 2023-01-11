@@ -29,13 +29,13 @@ float height_at(vec2 pos) {
 	fnl_state noise = fnlCreateState(1);
 	noise.octaves = 8;
 
-	float n = snoise(pos / 800.0) * 0.7
-		+ snoise(pos / 200.0) * 0.19
-		+ snoise(pos / 60.0) * 0.08
-		+ snoise(pos / 30.0) * 0.02
-		+ snoise(pos / 16.0) * 0.006;
-		+ snoise(pos / 7.0) * 0.004;
-	float h = (pow5(n+0.1)+ n/3.0 + 0.15) * 80.0;
+// 	float n = snoise(pos / 800.0) * 0.7
+// 		+ snoise(pos / 200.0) * 0.19
+// 		+ snoise(pos / 60.0) * 0.08
+// 		+ snoise(pos / 30.0) * 0.02
+// 		+ snoise(pos / 16.0) * 0.006;
+// 		+ snoise(pos / 7.0) * 0.004;
+// 	float h = (pow5(n+0.1)+ n/3.0 + 0.15) * 80.0;
 	float n2 = fnlGetNoise2D(noise, pos.x/6.0, pos.y/6.0);
 // 	float h2 = (pow5(n2) + 0.1) * 50.0;
 	float h2 = (pow5(n2+0.0)+ n2/3.0 + 0.10) * 100.0;

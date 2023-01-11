@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=20 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
 [ext_resource type="Shader" path="res://shaders/grass_item.gdshader" id="6_p0buu"]
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
+[ext_resource type="Texture2D" uid="uid://brxqjqcm80p1q" path="res://assets/grass_white.png" id="8_km0yk"]
 [ext_resource type="PackedScene" uid="uid://ktlm8ftijwrn" path="res://scenes/blueprint.tscn" id="8_vb857"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wvqfo"]
@@ -32,6 +33,15 @@ material = SubResource("ShaderMaterial_sbja6")
 size = Vector2(2, 1)
 center_offset = Vector3(0, 0.5, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifoop"]
+transparency = 1
+shading_mode = 2
+albedo_color = Color(0.0666667, 0.8, 0.0666667, 1)
+albedo_texture = ExtResource("8_km0yk")
+
+[sub_resource type="QuadMesh" id="QuadMesh_m1fli"]
+material = SubResource("StandardMaterial3D_ifoop")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5812"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sf6mf"]
@@ -51,10 +61,8 @@ offset_bottom = 50.0
 script = ExtResource("3_k87n2")
 
 [node name="Fps" type="Label" parent="Counters"]
-layout_mode = 2
 
 [node name="Pos" type="Label" parent="Counters"]
-layout_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 unique_name_in_owner = true
@@ -70,8 +78,13 @@ source = NodePath("../Blueprint")
 transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 1, 5.96046e-08, -4.76837e-07, 1.19209e-07)
 source = NodePath("../Blueprint")
 mesh = SubResource("QuadMesh_4x1m3")
-chunk_size = 12
-particles_per_meter = 1.5
+
+[node name="HeightGrass2" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
+transform = Transform3D(1, 0, 0, -1.49012e-08, 1, -2.98023e-08, 1.49012e-08, 0, 1, 5.96046e-08, -4.76837e-07, 1.19209e-07)
+visible = false
+source = NodePath("../Blueprint")
+mesh = SubResource("QuadMesh_m1fli")
+particles_per_meter = 4.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.17101, 0.296198, 0, 0.866026, 0.5, -0.34202, -0.469846, 0.813797, 0, 4.52354, 0)
@@ -91,3 +104,4 @@ texture = SubResource("ViewportTexture_o0m4k")
 [connection signal="viewpoint_changed" from="Player" to="HeightMesh" method="update_viewpoint"]
 [connection signal="viewpoint_changed" from="Player" to="HeightCollisions" method="update_viewpoint"]
 [connection signal="viewpoint_changed" from="Player" to="HeightGrass" method="update_viewpoint"]
+[connection signal="viewpoint_changed" from="Player" to="HeightGrass2" method="update_viewpoint"]

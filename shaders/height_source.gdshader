@@ -10,5 +10,5 @@ void fragment() {
 	vec2 pos = uv_to_pos(UV);
 	float h = height_proportion(height_at(pos));
 	float b = 255.0;
-	COLOR = vec4(floor(h*b)/b, fract(h*b), 0.0, 1.0);
+	COLOR = vec4(floor(h*b)/b, fract(h*b), 1.0, 1.0);
 }

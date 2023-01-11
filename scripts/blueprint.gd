@@ -81,7 +81,8 @@ func get_area_height(sub_area):
 	for y in range(used_pixel_area.position.y, used_pixel_area.end.y):
 		for x in range(used_pixel_area.position.x, used_pixel_area.end.x):
 			var ch = _heightmap_image.get_pixel(x, y)
-			heightdata[x - used_pixel_area.position.x + (y - used_pixel_area.position.y) * pixel_area.size.x ] = (ch.r + ch.g/255) * aabb.size.y + aabb.position.y
+			var hh = (ch.r + ch.g/255)
+			heightdata[x - used_pixel_area.position.x + (y - used_pixel_area.position.y) * pixel_area.size.x ] = hh * aabb.size.y + aabb.position.y
 	return heightdata
 
 

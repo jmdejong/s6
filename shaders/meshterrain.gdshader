@@ -122,7 +122,7 @@ void fragment() {
 	vec2 tex_uv = fract(p.xz / texture_size);
 	vec4 te;
 	vec4 tt = interpolate_texture(uv_at(p.xz), te);
-	vec4 cur = nrm(smoothstep(0.0, 1.0, tt * tt * tt * tt * tt));//texture(current_texture, uv_at(p.xz)).xyz;
+	vec4 cur = nrm(tt * tt * tt * tt * tt* tt * tt * tt * tt);//texture(current_texture, uv_at(p.xz)).xyz;
 // 	vec3 cur = interpolate_texture(uv_at(p.xz));
 	vec4 t =
 		texture(textures, vec3(tex_uv, te.x)) * cur.x +
