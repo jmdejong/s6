@@ -22,6 +22,7 @@ func add_node(pos: Vector2):
 	var cs = Vector2(chunk_size, chunk_size)
 	shape.map_data = source.get_area_height(Rect2(pos - cs/2, cs+Vector2(1, 1)/source.resolution))
 	node.shape = shape
+	node.scale = Vector3(1.0/source.resolution, 1, 1.0/source.resolution)
 	_loaded_chunks[pos] = node
 	add_child(node)
 
