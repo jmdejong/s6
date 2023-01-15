@@ -1,9 +1,7 @@
 shader_type spatial;
 render_mode world_vertex_coords, specular_disabled, diffuse_lambert;
 
-
 #include "shaders/ashima_simplex.gdshaderinc"
-
 
 // uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
 // uniform sampler2D sand_texture : source_color, filter_linear_mipmap;

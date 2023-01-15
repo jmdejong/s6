@@ -11,7 +11,7 @@ uniform vec3 pos3;
 uniform vec3 viewpoint;
 uniform float reduce_radius_sq;
 
-
+const vec2 scale = vec2(0.5, 0.5);
 
 float rand_from_seed(in uint seed) {
 	int k;
@@ -50,25 +50,43 @@ void start() {
 	float h = height_at(pos);
 	vec2 uv = uv_at(pos);
 	float density = texture(grass_density, uv).r;
-	vec2 dir = vec2(-sin(rot), cos(rot));
-	float dp = dot(dir.yx, normalize(pos - viewpoint.xz));
+	vec2 dir = vec2(cos(rot), -sin(rot));
 	vec2 diff = viewpoint.xz - pos;
 	vec2 diffsq = diff * diff;
 	float distsq = diffsq.x + diffsq.y;
+
 	if (distsq > reduce_radius_sq ) {
 		density = min(density, 0.4);
 	}
-	if (density < rand_from_seed(hash(ind * 103u + 13u)) /*|| distsq > reduce_radius_sq && abs(dp) < 0.5*/) {
-		ACTIVE = false;
-	}
-// 	dir *= sign(dp);
+	ACTIVE = density > rand_from_seed(hash(ind * 103u + 13u));
 
-	TRANSFORM = mat4(
-		vec4( -dir.x, 0.0, dir.y, 0.0),
-		vec4( 0.0, 1.0, 0.0, 0.0),
-		vec4( -dir.y, 0.0, -dir.x, 0.0),
+// 	TRANSFORM = mat4(
+// 		vec4( dir.x * scale.x, 0.0, dir.y * scale.x, 0.0),
+// 		vec4( 0.0, scale.y, 0.0, 0.0),
+// 		vec4( -dir.y * scale.x, 0.0, dir.x * scale.x, 0.0),
+// 		vec4( pos.x, h, pos.y, 1.0)
+// 	);
+	vec3 normal = normal_at(pos);
+
+	mat4 transform1 = mat4(
+		vec4( normal.y, -normal.x, 0.0, 0.0),
+		vec4( normal.x, normal.y, normal.z, 0.0),
+		vec4( 0.0, -normal.z, normal.y , 0.0),
 		vec4( pos.x, h, pos.y, 1.0)
 	);
+	mat4 transform2 = mat4(
+		vec4( dir.x, 0.0, dir.y, 0.0),
+		vec4( 0.0, 1.0, 0.0, 0.0),
+		vec4(-dir.y, 0.0, dir.x , 0.0),
+		vec4( 0.0, 0.0, 0.0, 1.0)
+	);
+	mat4 transform3 = mat4(
+		vec4(scale.x, 0.0, 0.0, 0.0),
+		vec4(0.0, scale.y, 0.0, 0.0),
+		vec4(0.0, 0.0, scale.x, 0.0),
+		vec4(0.0, 0.0, 0.0, 1.0)
+	);
+	TRANSFORM = transform1 * transform2 * transform3;
 
 }
 

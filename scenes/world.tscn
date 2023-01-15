@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=20 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
 [ext_resource type="Script" path="res://scripts/counters.gd" id="3_k87n2"]
 [ext_resource type="PackedScene" uid="uid://cso43mjodhv5w" path="res://scenes/height_collisions.tscn" id="4_7w3qk"]
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
+[ext_resource type="Texture2D" uid="uid://c2utmrywsacud" path="res://assets/grass_blades.png" id="6_2j5lg"]
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
 [ext_resource type="Script" path="res://scripts/wrappinggrass.gd" id="7_u0gdf"]
 [ext_resource type="PackedScene" uid="uid://ktlm8ftijwrn" path="res://scenes/blueprint.tscn" id="8_vb857"]
@@ -22,26 +23,26 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_joww0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3v1k"]
 transparency = 2
-alpha_scissor_threshold = 0.8
+alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 shading_mode = 2
 diffuse_mode = 1
 specular_mode = 2
-albedo_texture = ExtResource("7_kjetl")
+albedo_texture = ExtResource("6_2j5lg")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ju8ce"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_26m4x"]
 _surfaces = [{
-"aabb": AABB(-0.5, 0, 0, 1.00001, 0.5, 1e-05),
+"aabb": AABB(-1, 0, 0, 2.00001, 1, 1e-05),
 "attribute_data": PackedByteArray(0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "format": 4119,
 "index_count": 12,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0, 3, 0, 1, 0, 2, 0, 2, 0, 1, 0, 0, 0),
-"material": SubResource("StandardMaterial3D_joww0"),
+"material": SubResource("StandardMaterial3D_j3v1k"),
 "primitive": 3,
 "vertex_count": 4,
-"vertex_data": PackedByteArray(0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191)
+"vertex_data": PackedByteArray(0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 0, 0, 255, 127, 255, 255, 255, 255, 255, 191)
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52oev"]
@@ -103,7 +104,8 @@ source = NodePath("../Blueprint")
 
 [node name="HeightGrass3" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
 source = NodePath("../Blueprint")
-mesh = SubResource("ArrayMesh_ju8ce")
+mesh = SubResource("ArrayMesh_26m4x")
+particles_per_meter = 4.0
 reduce_radius = 32.0
 
 [node name="WrappingGrass" type="Node3D" parent="." node_paths=PackedStringArray("source")]

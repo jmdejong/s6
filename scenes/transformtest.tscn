@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjl1dgvish75t"]
+
+[ext_resource type="Shader" path="res://shaders/rotationtest.gdshader" id="1_f4kpj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7881"]
+render_priority = 0
+shader = ExtResource("1_f4kpj")
+
+[sub_resource type="BoxMesh" id="BoxMesh_87nnt"]
+material = SubResource("ShaderMaterial_f7881")
+custom_aabb = AABB(-10, -10, -10, 20, 20, 20)
+size = Vector3(1, 2, 0.5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+custom_aabb = AABB(-10, -10, -20, 20, 20, 20)
+mesh = SubResource("BoxMesh_87nnt")

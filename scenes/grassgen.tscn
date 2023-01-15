@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbj7hw2k7jitq"]
+
+[ext_resource type="Script" path="res://scripts/customgrass.gd" id="1_sisis"]
+
+[node name="SubViewport" type="SubViewport"]
+render_target_update_mode = 4
+
+[node name="Grass" type="Node2D" parent="."]
+script = ExtResource("1_sisis")
+area = Rect2(0, 0, 512, 256)
+nblades = 128
+seed = 5.0

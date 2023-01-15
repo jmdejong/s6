@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode vertex_lighting, specular_disabled;
+render_mode vertex_lighting, specular_disabled, diffuse_lambert;
 
 uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
 
@@ -12,9 +12,8 @@ void fragment() {
 // 		discard;
 // 	}
 	vec4 t = texture(grass_texture, UV);
-	if (t.a < 0.9) {
+	if (t.a < 0.5) {
 		discard;
-	} else {
-		ALBEDO = t.rgb;
 	}
+	ALBEDO = t.rgb;
 }
