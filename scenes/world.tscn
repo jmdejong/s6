@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/counters.gd" id="3_k87n2"]
 [ext_resource type="PackedScene" uid="uid://cso43mjodhv5w" path="res://scenes/height_collisions.tscn" id="4_7w3qk"]
 [ext_resource type="PackedScene" uid="uid://qvsylhhgvhsx" path="res://scenes/height_grass.tscn" id="5_qde1d"]
-[ext_resource type="Texture2D" uid="uid://c2utmrywsacud" path="res://assets/grass_blades.png" id="6_2j5lg"]
+[ext_resource type="Texture2D" uid="uid://bj42mn3fhe73u" path="res://assets/alphagrass.png" id="6_bn4dn"]
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
 [ext_resource type="Script" path="res://scripts/wrappinggrass.gd" id="7_u0gdf"]
 [ext_resource type="PackedScene" uid="uid://ktlm8ftijwrn" path="res://scenes/blueprint.tscn" id="8_vb857"]
@@ -30,7 +30,7 @@ alpha_antialiasing_mode = 0
 shading_mode = 2
 diffuse_mode = 1
 specular_mode = 2
-albedo_texture = ExtResource("6_2j5lg")
+albedo_texture = ExtResource("6_bn4dn")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_26m4x"]
 _surfaces = [{

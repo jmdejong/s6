@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://djjvjbpdj6qu6"]
+
+[ext_resource type="ArrayMesh" uid="uid://cohqhq13fnqe" path="res://assets/quaternius/Ultimate Stylized Nature - May 2022/OBJ/BirchTree_1.obj" id="1_8s66d"]
+[ext_resource type="Texture2D" uid="uid://bqe2msdf5yapo" path="res://assets/quaternius/Ultimate Stylized Nature - May 2022/Textures/BirchTree_Bark.png" id="2_k5mj1"]
+[ext_resource type="Texture2D" uid="uid://bg44c050wh7qq" path="res://assets/quaternius/Ultimate Stylized Nature - May 2022/Textures/BirchTree_Bark_Normal.png" id="3_5qpg0"]
+[ext_resource type="Texture2D" uid="uid://cq38iqpm76dlt" path="res://assets/quaternius/Ultimate Stylized Nature - May 2022/Textures/Leaves_BW.png" id="4_5360s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leold"]
+albedo_texture = ExtResource("2_k5mj1")
+normal_enabled = true
+normal_texture = ExtResource("3_5qpg0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxxcq"]
+transparency = 2
+alpha_scissor_threshold = 0.9
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0.129412, 0.866667, 0.266667, 1)
+albedo_texture = ExtResource("4_5360s")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cpjog"]
+height = 4.0
+radius = 0.1
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_8s66d")
+surface_material_override/0 = SubResource("StandardMaterial3D_leold")
+surface_material_override/1 = SubResource("StandardMaterial3D_mxxcq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CylinderShape3D_cpjog")
