@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 
-#include "shaders/heightsave.gdshaderinc"
+#include "heightsave.gdshaderinc"
 
 
 void fragment() {

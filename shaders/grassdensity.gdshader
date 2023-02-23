@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
-#include "shaders/fastnoiselite.gdshaderinc"
-#include "shaders/heightsave.gdshaderinc"
+#include "fastnoiselite.gdshaderinc"
+#include "heightsave.gdshaderinc"
 
 
 

@@ -1,9 +1,9 @@
 shader_type canvas_item;
 
 
-#include "shaders/ashima_simplex.gdshaderinc"
-#include "shaders/fastnoiselite.gdshaderinc"
-#include "shaders/height_at.gdshaderinc"
+#include "ashima_simplex.gdshaderinc"
+#include "fastnoiselite.gdshaderinc"
+#include "height_at.gdshaderinc"
 
 void fragment() {
 	vec2 pos = uv_to_pos(UV);

@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode world_vertex_coords, specular_disabled, diffuse_lambert;
 
-#include "shaders/ashima_simplex.gdshaderinc"
+#include "ashima_simplex.gdshaderinc"
 
 // uniform sampler2D grass_texture : source_color, filter_linear_mipmap;
 // uniform sampler2D sand_texture : source_color, filter_linear_mipmap;
@@ -10,7 +10,7 @@ uniform sampler2DArray textures : source_color, filter_linear_mipmap;
 uniform sampler2D current_texture : filter_nearest;
 uniform float texture_size;
 
-#include "shaders/heightsave.gdshaderinc"
+#include "heightsave.gdshaderinc"
 
 varying vec3 normals;
 // varying vec2 tex_uv;

@@ -2,7 +2,7 @@ shader_type particles;
 
 
 
-#include "shaders/heightsave.gdshaderinc"
+#include "heightsave.gdshaderinc"
 
 uniform uint side;
 uniform float chunk_size;
