@@ -94,7 +94,7 @@ layout_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_hadwj")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 50, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 32, 256)
 
 [node name="HeightMesh" parent="." node_paths=PackedStringArray("source") instance=ExtResource("3_f64ys")]
 source = NodePath("../Blueprint")

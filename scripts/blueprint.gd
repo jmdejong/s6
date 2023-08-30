@@ -23,7 +23,9 @@ func _ready():
 	await RenderingServer.frame_post_draw
 	height_texture = $HeightView.get_texture()
 	_heightmap_image = height_texture.get_image()
+#	_heightmap_image.save_png("debug/heightmap.png")
 	normal_texture = $NormalView.get_texture()
+#	normal_texture.get_image().save_png("debug/normal.png")
 	_initialize_view($GrassView, {"height_input":  height_texture, "normal_input": normal_texture})
 	$GrassView.render_target_update_mode = 1
 
@@ -32,7 +34,9 @@ func _ready():
 
 	await RenderingServer.frame_post_draw
 	grass_density_texture = $GrassView.get_texture()
+#	grass_density_texture.get_image().save_png("debug/grass_density.png")
 	current_texture = $CurrentTextureView.get_texture()
+#	current_texture.get_image().save_png("debug/current.png")
 	is_ready = true
 	_creation_done.emit()
 

@@ -16,7 +16,7 @@ shader_parameter/base_height = null
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_juoyq"]
 shader = ExtResource("3_b4khk")
 shader_parameter/area_min = Vector3(-2048, -256, -2048)
-shader_parameter/area_size = Vector3(1024, 1024, 1024)
+shader_parameter/area_size = Vector3(512, 1024, 1024)
 shader_parameter/shore_offset = null
 shader_parameter/base_height = null
 
@@ -40,7 +40,6 @@ render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="HeightView"]
 material = SubResource("ShaderMaterial_rxc4f")
-custom_minimum_size = Vector2(1024, 1024)
 offset_right = 4096.0
 offset_bottom = 4096.0
 
@@ -51,7 +50,6 @@ render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="NormalView"]
 material = SubResource("ShaderMaterial_juoyq")
-custom_minimum_size = Vector2(4096, 4096)
 offset_right = 4096.0
 offset_bottom = 4096.0
 
@@ -61,7 +59,6 @@ render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="GrassView"]
 material = SubResource("ShaderMaterial_5d2e0")
-custom_minimum_size = Vector2(4096, 4096)
 offset_right = 4096.0
 offset_bottom = 4096.0
 
@@ -72,6 +69,5 @@ render_target_update_mode = 1
 
 [node name="Image" type="ColorRect" parent="CurrentTextureView"]
 material = SubResource("ShaderMaterial_oy0dv")
-custom_minimum_size = Vector2(1024, 1024)
 offset_right = 4096.0
 offset_bottom = 4096.0
