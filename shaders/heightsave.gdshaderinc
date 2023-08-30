@@ -9,9 +9,6 @@ vec2 uv_at(vec2 position) {
 	return (clamp(position, area_min.xz, area_size.xz + area_min.xz) - area_min.xz) / area_size.xz;
 }
 
-vec3 normal_at(vec2 position) {
-	return normalize(texture(normal_input, uv_at(position)).xyz * 2.0 - 1.0);
-}
 
 
 float raw_height_at(ivec2 ixy) {
@@ -70,5 +67,11 @@ float height_at(vec2 position) {
 // 	return (tex.x + tex.y / 255.0 ) * area_size.y + area_min.y;
 }
 
+vec3 normal_at(vec2 position) {
+//     vec3 va = normalize(vec3(2,0,height_at(position + vec2(-0.01, 0)) - height_at(position + vec2(0.01, 0)));
+//     vec3 vb = normalize(vec3(size.yx,s12-s10));
+// 	return
+	return normalize(texture(normal_input, uv_at(position)).xyz * 2.0 - 1.0);
+}
 
 

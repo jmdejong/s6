@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://fn2ddksgfbtm"]
+[gd_scene load_steps=21 format=3 uid="uid://fn2ddksgfbtm"]
 
 [ext_resource type="PackedScene" uid="uid://ckh5xy7d14ubd" path="res://scenes/player.tscn" id="1_hadwj"]
 [ext_resource type="PackedScene" uid="uid://w66dky36q7nm" path="res://scenes/height_mesh.tscn" id="3_f64ys"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ch6ynq5e3k6pm" path="res://assets/para/vegetation_grass_card_03.png" id="7_kjetl"]
 [ext_resource type="Script" path="res://scripts/wrappinggrass.gd" id="7_u0gdf"]
 [ext_resource type="PackedScene" uid="uid://ktlm8ftijwrn" path="res://scenes/blueprint.tscn" id="8_vb857"]
+[ext_resource type="PackedScene" uid="uid://bpflwbrbt5muo" path="res://scenes/treegen.tscn" id="10_lk88l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wvqfo"]
 sky_top_color = Color(0.313726, 0.462745, 1, 1)
@@ -105,7 +106,6 @@ source = NodePath("../Blueprint")
 [node name="HeightGrass3" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_qde1d")]
 source = NodePath("../Blueprint")
 mesh = SubResource("ArrayMesh_26m4x")
-particles_per_meter = 4.0
 reduce_radius = 32.0
 
 [node name="WrappingGrass" type="Node3D" parent="." node_paths=PackedStringArray("source")]
@@ -131,6 +131,9 @@ visible = false
 offset_right = 889.0
 offset_bottom = 554.0
 texture = SubResource("ViewportTexture_o0m4k")
+
+[node name="Tree" parent="." instance=ExtResource("10_lk88l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 
 [connection signal="viewpoint_changed" from="Player" to="HeightMesh" method="update_viewpoint"]
 [connection signal="viewpoint_changed" from="Player" to="HeightCollisions" method="update_viewpoint"]

@@ -28,7 +28,7 @@ shader_parameter/area_size = null
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oy0dv"]
 shader = ExtResource("5_ak5wi")
 shader_parameter/area_min = null
-shader_parameter/area_size = Vector3(1024, 0, 1024)
+shader_parameter/area_size = null
 
 [node name="Blueprint" type="Node"]
 script = ExtResource("1_ngrhy")
